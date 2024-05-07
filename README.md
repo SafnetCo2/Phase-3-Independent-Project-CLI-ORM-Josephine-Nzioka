@@ -1,9 +1,11 @@
 # User and Note Management CLI
 Welcome to my User and Note Management CLI project! This CLI application allows users to manage users and notes through a command-line interface. It leverages SQLAlchemy for object-relational mapping (ORM) and SQLite as the database backend.
 
+
 ## Table of Contents
 
 - [Demo](#demo)
+- [Technology](#Technology)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -14,6 +16,10 @@ Welcome to my User and Note Management CLI project! This CLI application allows 
 ## Demo
 
 [Insert GIF or video demo here]
+## Technology Stack
+Python: The core language used for developing the CLI application.
+SQLAlchemy: Utilized for object-relational mapping, simplifying database interactions.
+SQLite: Chosen as the database backend for its lightweight nature and simplicity in setting up.
 
 ## Features
 
@@ -70,12 +76,14 @@ By default, the application uses an SQLite database named `mydb.db`. You can cha
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE] https://opensource.org/license/mit file for details.
+
+
 
 ## Acknowledgments
 
-Special thanks to the contributors and maintainers of SQLAlchemy for providing a powerful ORM tool.
+Special thanks to Ian mentor,the contributors and maintainers of SQLAlchemy for providing a powerful ORM tool.
 
 ## About the Developer
 
-[Insert brief bio or description about yourself]
+Hey there! 👋 I'm Josephine, a passionate student of software development at Moringa School. I have a keen interest in crafting elegant solutions to real-world problems using technology. Currently, I'm honing my skills in Python, SQL, and web development, among other always eager to learn and grow with each new challenge I encounter.

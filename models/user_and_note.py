@@ -108,8 +108,6 @@ class Note(Base):
 def cli():
     pass
 
-
-
 @cli.command()
 @click.option('--username', prompt='Username', help='User username')
 @click.option('--email', prompt='Email', help='User email')
@@ -120,6 +118,7 @@ def create_user(username, email, role):
     session = Session()
     User.create(session, username, email, role)
     click.echo('The user has been created.')
+    session.close()
 
 @cli.command()
 def list_users():
@@ -149,6 +148,8 @@ def create_note(title, content, user_id):
     session = Session()
     Note.create(session, title, content, int(user_id))
     click.echo('The note has been created.')
+#cli for note
+
 
 @cli.command()
 @click.option('--note_id', prompt='Note ID', help='Note ID to delete')
@@ -229,6 +230,14 @@ def list_notes_by_date(date):
             click.echo(note)
     else:
         click.echo(f'No notes found created on {date}.')
+# Define a main function to run the CLI in a loop until the user exits
+def main():
+    while True:
+        cli()
+        choice = click.prompt('Do you want to continue? (yes/no)', type=str)
+        if choice.lower() != 'yes':
+            click.echo('Exiting...')
+            break
 
 if __name__ == '__main__':
     
