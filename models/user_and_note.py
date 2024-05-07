@@ -110,6 +110,7 @@ def cli():
 
 
 
+
 @cli.command()
 @click.option('--username', prompt='Username', help='User username')
 @click.option('--email', prompt='Email', help='User email')
@@ -174,3 +175,62 @@ def update_user(user_id, username, email, role):
         click.echo(f'The user with ID {user_id} has been updated.')
     else:
         click.echo(f'User with ID {user_id} not found.')
+#note CLI commands
+@cli.command()
+@click.option('--note_id', prompt='Note ID', help='Note ID to update')
+@click.option('--title', prompt='New Title', help='New title')
+@click.option('--content', prompt='New Content', help='New content')
+def update_note(note_id, title, content):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    note = Note.update(session, int(note_id), title=title, content=content)
+    if note:
+        click.echo(f'The note with ID {note_id} has been updated.')
+    else:
+        click.echo(f'Note with ID {note_id} not found.')
+
+@cli.command()
+@click.option('--keyword', prompt='Keyword', help='Search keyword')
+def search_notes(keyword):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    notes = Note.search(session, keyword)
+    if notes:
+        for note in notes:
+            click.echo(note)
+    else:
+        click.echo('No notes found matching the search criteria.')
+
+@cli.command()
+@click.option('--user_id', prompt='User ID', help='User ID to list notes')
+def list_notes_by_user(user_id):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    user = User.find_by_id(session, int(user_id))
+    if user:
+        click.echo(f'Notes for user: {user.username}')
+        for note in user.notes:
+            click.echo(note)
+    else:
+        click.echo(f'User with ID {user_id} not found.')
+
+@cli.command()
+@click.option('--date', prompt='Date (YYYY-MM-DD)', help='Date to list notes')
+def list_notes_by_date(date):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    notes = session.query(Note).filter(func.date(Note.created_at) == date).all()
+    if notes:
+        click.echo(f'Notes created on {date}:')
+        for note in notes:
+            click.echo(note)
+    else:
+        click.echo(f'No notes found created on {date}.')
+
+if __name__ == '__main__':
+    
+    cli()
