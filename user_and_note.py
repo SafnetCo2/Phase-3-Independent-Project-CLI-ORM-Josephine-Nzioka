@@ -80,3 +80,97 @@ class Note(Base):
         if note:
             session.delete(note)
             session.commit()
+
+    @classmethod
+    def update(cls, session, note_id, **kwargs):
+        note = session.query(cls).filter_by(note_id=note_id).first()
+        if note:
+            for key, value in kwargs.items():
+                setattr(note, key, value)
+            session.commit()
+            return note
+        return None
+
+    @classmethod
+    def get_all(cls, session):
+        return session.query(cls).all()
+
+    @classmethod
+    def find_by_id(cls, session, note_id):
+        return session.query(cls).filter_by(note_id=note_id).first()
+
+    @classmethod
+    def search(cls, session, keyword):
+        return session.query(cls).filter(cls.title.like(f'%{keyword}%') | cls.content.like(f'%{keyword}%')).all()
+
+#command line interface applications CLI for user and note
+@click.group()
+def cli():
+    pass
+
+
+
+@cli.command()
+@click.option('--username', prompt='Username', help='User username')
+@click.option('--email', prompt='Email', help='User email')
+@click.option('--role', default='Regular', help='User role')
+def create_user(username, email, role):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    User.create(session, username, email, role)
+    click.echo('The user has been created.')
+
+@cli.command()
+def list_users():
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    users = User.get_all(session)
+    for user in users:
+        click.echo(user)
+
+@cli.command()
+@click.option('--user_id', prompt='User ID', help='User ID to delete')
+def delete_user(user_id):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    User.delete(session, int(user_id))
+    click.echo(f'The user with ID {user_id} has been deleted.')
+
+@cli.command()
+@click.option('--title', prompt='Title', help='Note title')
+@click.option('--content', prompt='Content', help='Note content')
+@click.option('--user_id', prompt='User ID', help='User ID associated with the note')
+def create_note(title, content, user_id):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    Note.create(session, title, content, int(user_id))
+    click.echo('The note has been created.')
+
+@cli.command()
+@click.option('--note_id', prompt='Note ID', help='Note ID to delete')
+def delete_note(note_id):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    Note.delete(session, int(note_id))
+    click.echo(f'The note with ID {note_id} has been deleted.')
+
+
+@cli.command()
+@click.option('--user_id', prompt='User ID', help='User ID to update')
+@click.option('--username', prompt='New Username', help='New username')
+@click.option('--email', prompt='New Email', help='New email')
+@click.option('--role', prompt='New Role', help='New role')
+def update_user(user_id, username, email, role):
+    engine = create_engine('sqlite:///mydb.db', echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    user = User.update(session, int(user_id), username=username, email=email, role=role)
+    if user:
+        click.echo(f'The user with ID {user_id} has been updated.')
+    else:
+        click.echo(f'User with ID {user_id} not found.')
