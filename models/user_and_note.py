@@ -110,7 +110,6 @@ def cli():
 
 
 
-
 @cli.command()
 @click.option('--username', prompt='Username', help='User username')
 @click.option('--email', prompt='Email', help='User email')
