@@ -15,7 +15,7 @@ Welcome to my User and Note Management CLI project! This CLI application allows 
 
 ## Demo
 
-[Insert GIF or video demo here]
+[ video]
 ## Technology Stack
 Python: The core language used for developing the CLI application.
 SQLAlchemy: Utilized for object-relational mapping, simplifying database interactions.
@@ -65,7 +65,7 @@ SQLite: Chosen as the database backend for its lightweight nature and simplicity
 1. Run the CLI application:
 
     ```bash
-    python user_and_note.py
+    python3 user_and_note.py
     ```
 
 2. Use the available commands to manage users and notes. See the [Usage](#usage) section in the [README.md](README.md) file for more details.
@@ -86,4 +86,4 @@ Special thanks to Ian mentor,the contributors and maintainers of SQLAlchemy for 
 
 ## About the Developer
 
-Hey there! 👋 I'm Josephine, a passionate student of software development at Moringa School. I have a keen interest in crafting elegant solutions to real-world problems using technology. Currently, I'm honing my skills in Python, SQL, and web development, among other always eager to learn and grow with each new challenge I encounter.
+Hey there! 👋 I'm Josephine, a passionate student of software development at Moringa School. I have a keen interest in crafting elegant solutions to real-world problems using technology. Currently, I'm honing my skills in Python, SQL, and web development, among others always eager to learn and grow with each new challenge I encounter.
