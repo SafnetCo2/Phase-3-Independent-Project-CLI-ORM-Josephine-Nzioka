@@ -6,7 +6,7 @@ from sqlalchemy.sql import func
 
 #  Base class declarative used for ORM classes
 Base = declarative_base()
-#user
+#user file
 class User(Base):
     __tablename__ = "users"
 
@@ -51,7 +51,7 @@ class User(Base):
     @classmethod
     def find_by_id(cls, session, user_id):
         return session.query(cls).filter_by(user_id=user_id).first()
-#note class
+#note class file
 class Note(Base):
     __tablename__ = "notes"
 

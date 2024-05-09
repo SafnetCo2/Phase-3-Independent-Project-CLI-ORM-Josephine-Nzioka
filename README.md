@@ -15,7 +15,7 @@ Welcome to my User and Note Management CLI project! This CLI application allows 
 
 ## Demo
 
-[ video]
+[ video]https://drive.google.com/file/d/1rmAddDjSMP6vmbVgTYCfTN0YzI-PfwAL/view
 ## Technology Stack
 Python: The core language used for developing the CLI application.
 SQLAlchemy: Utilized for object-relational mapping, simplifying database interactions.
